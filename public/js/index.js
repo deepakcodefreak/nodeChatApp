@@ -1,3 +1,4 @@
+
 var socket = io();
 
 socket.on('connect',()=>{
@@ -14,10 +15,11 @@ socket.on('newEmail',function(email){
 
 
 socket.on('newMessage',function(message){
+    var formatted_Time = moment(message.createdAt).format('h:mm a')
     console.log(message);
 
     let li = jQuery('<li></li>')
-    li.text(`From ${message.from}: ${message.text}`)
+    li.text(`From : ${message.from}  ${formatted_Time} : ${message.text}`)
     jQuery('#messages').append(li);
 })
 
@@ -66,7 +68,8 @@ locationButton.on('click',function(e){
 
 
 socket.on('newLocationMessage',function(message){
-    let li = jQuery('<li></li>')
+    let formatted_Time = moment(message.createdAt).format('h:mm a')
+    let li = jQuery(`<li>${message.from} : ${formatted_Time} </li>`)
     let a = jQuery('<a target="_blank">My current Location</a>')
 
     a.attr('href',message.url)

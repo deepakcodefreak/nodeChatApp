@@ -5,14 +5,18 @@
   "license": "MIT",
   "scripts": {
     "start": "node server/server.js",
-    "test":"jest server/**/*.test.js",
-    "test-watch":"nodemon --exec 'npm test'"
+    "test": "jest server/**/*.test.js",
+    "test-watch": "nodemon --exec 'npm test'"
   },
   "engines": {
     "node": "8.10.0"
   },
   "dependencies": {
     "express": "^4.16.4",
+    "moment": "^2.24.0",
     "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "jest": "^24.5.0"
   }
 }
