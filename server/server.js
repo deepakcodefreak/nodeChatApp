@@ -3,6 +3,8 @@ const express = require('express')
 const socketIO = require('socket.io')
 const http = require('http')
 
+const {generateMessage} = require('./utils/message');
+
 const port = process.env.PORT||3000;
 const app = express()
 
@@ -14,26 +16,23 @@ var io = socketIO(server);
 io.on('connection',(socket)=>{
     console.log('New user Connected')
 
+    socket.emit('newMessage',generateMessage('Admin','Welcome To Chat Room'))
+
+    socket.broadcast.emit('newMessage',generateMessage('Admin','New User Joined'))
+
     socket.on('disconnect',()=>{
         console.log('User Disconnected')
     })
 
     
-    socket.on('createMessage',function(message){
+    socket.on('createMessage',function(message,callback){
        console.log('createMessage',message);
 
-       io.emit('newMessage',{
-           from:message.from,
-           text:message.text,
-           createdAt:new Date().toDateString()
-       })
-    })
+        // socket.broadcast.emit('newMessage',generateMessage(message.from,message.text))
+        io.emit('newMessage',generateMessage(message.from,message.text))
+        callback('This is from the server');
+})
 
-    socket.emit('newMessage',{
-        from :'lfn',
-        text:'hiiiii',
-        createdAt:new Date().toDateString()
-    })
 })
 
 

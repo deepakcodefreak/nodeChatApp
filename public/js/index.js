@@ -2,12 +2,6 @@ var socket = io();
 
 socket.on('connect',()=>{
     console.log(`Connected to Server`)
-
-    socket.emit('createMessage',{
-        text:'hey',
-        from:'deepak'
-    })
-    
 })
 
 socket.on('disconnect',()=>{
@@ -19,7 +13,23 @@ socket.on('newEmail',function(email){
 })
 
 
-socket.on('newMessage',function(res){
-    console.log(res)
+socket.on('newMessage',function(message){
+    console.log(message);
+
+    let li = jQuery('<li></li>')
+    li.text(`From ${message.from}: ${message.text}`)
+    jQuery('#messages').append(li);
 })
 
+
+
+jQuery('#message-form').on('submit',function(e){
+    e.preventDefault()
+
+    socket.emit('createMessage',{
+        from:'User',
+        text:jQuery('[name=message]').val()
+    },function(){
+
+    })
+})
