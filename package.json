@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts":{
-    "start":"node server/server.js"
+  "scripts": {
+    "start": "node server/server.js"
   },
-  "engines":{
-    "node":"8.10.0"
+  "engines": {
+    "node": "8.10.0"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
   }
-  
 }
